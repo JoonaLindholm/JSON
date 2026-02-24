@@ -78,38 +78,55 @@
 
   <main id="main">
 <div class="mx-2">
-    <section class="container bg-dark text-white p-3 rounded-5 mt-5" aria-labelledby="etusivu-sisalto">
+    <section class="container bg-transparent text-white p-3 rounded-5 mt-5" aria-labelledby="etusivu-sisalto">
       <h2 id="etusivu-sisalto" class="text-center">JSON-datan käsittelyä</h2>
       <p class="text-center">Tällä sivustolle haetaan JSON-muotoista dataa</p>
     </section>
 </div>
   </main>
+  
+<script>
+// Hakee JSON-tiedoston
+fetch('tietue.JSON')
+  .then(function(response){
+    return response.json(); // muutetaan JS-olioksi
+  })
+  .then(function(data){
+    kerro(data); // kutsutaan funktiota joka näyttää tiedot
+  })
+  .catch(function(){
+    document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
+  });
 
-  <!-- Footer ja sen säädöt ja linkit. Linkit ja sisältö keskitettynä. Siirsin logon footeriin, koska se toimi paremmin-->
+  // Funktio, joka näyttää JSON-datan HTML:ssä
+function kerro(obj){
+  let tiedot = "<h1>" + obj.otsikko + "</h1>";
+  tiedot += "<p>" + obj.kuvaus + "</p>";
+  tiedot += "<p><img src='" + obj.kuva + "' alt='Kurssikuva'></p>";
 
-  <footer class="bg-transparent text-light mt-3" aria-label="Sivun alatunniste">
-    <div class="container py-3">
+  tiedot += "<h3>Opintojakso</h3>";
+  tiedot += "Nimi: " + obj.opintojakso.nimi + "<br>";
+  tiedot += "Tunnus: " + obj.opintojakso.tunnus + "<br>";
+  tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br>";
 
-<div class="d-flex align-items-center justify-content-center flex-wrap gap-4 text-center w-100">
-        <a class="d-flex align-items-center" href="#">
-          <img src="Kuvat/Logo.png" alt="Sivuston logo" height="100" class="me-2">
-        </a>
+  // Sisältö-lista
+  tiedot += "<h3>Sisältö</h3><ul>";
+  for(let i = 0; i < obj.opintojakso.sisalto.length; i++){
+    tiedot += "<li>" + obj.opintojakso.sisalto[i] + "</li>";
+  }
+  tiedot += "</ul>";
 
-        <ul class="nav justify-content-center w-100">
-          <li class="nav-item"><a class="nav-link px-2 text-light" href="#">Etusivu</a></li>
-        </ul>
-      </div>
+  // Tekniikat
+  tiedot += "<h3>Tekniikat</h3>";
+  for(let i = 0; i < obj.tekniikat.length; i++){
+    tiedot += "<b>" + obj.tekniikat[i].aihe + "</b>: ";
+    tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>linkki</a><br>";
+  }
 
-      <hr class="opacity-50 my-3">
-
-      <div class="d-flex justify-content-center">
-        <small class="opacity-75">
-          <em>Tekstiä</em>
-        </small>
-      </div>
-
-    </div>
-  </footer>
-
+  // Näytetään kaikki divissä
+  document.getElementById("vastaus").innerHTML = tiedot;
+}
+</script>
+  
 </body>
 </html>
