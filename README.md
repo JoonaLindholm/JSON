@@ -1,2 +1,2 @@
 # JSON
-JSON harjoittelutehtävät
+JSON harjoittelutehtävät löytyvät docs kansiosta!
