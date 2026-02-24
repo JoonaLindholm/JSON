@@ -89,32 +89,33 @@ fetch('JSON/tietue.json')
     document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
   });
 
-  // Funktio, joka näyttää JSON-datan HTML:ssä
 function kerro(obj){
-  let tiedot = "<h1>" + obj.otsikko + "</h1>";
-  tiedot += "<p>" + obj.kuvaus + "</p>";
-  tiedot += "<p><img src='" + obj.kuva + "' alt='Kurssikuva'></p>";
 
+  let tiedot = "";
+
+  // Otsikko + kuvaus
+  tiedot += "<h1>" + obj.otsikko + "</h1>";
+  tiedot += "<p>" + obj.kuvaus + "</p>";
+  tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3'>";
+
+  // Opintojakso
   tiedot += "<h3>Opintojakso</h3>";
+  tiedot += "<p>";
   tiedot += "Nimi: " + obj.opintojakso.nimi + "<br>";
   tiedot += "Tunnus: " + obj.opintojakso.tunnus + "<br>";
-  tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet + "<br>";
+  tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet;
+  tiedot += "</p>";
 
-  // Sisältö-lista
-  tiedot += "<h3>Sisältö</h3><ul>";
-  for(let i = 0; i < obj.opintojakso.sisalto.length; i++){
-    tiedot += "<li>" + obj.opintojakso.sisalto[i] + "</li>";
-  }
-  tiedot += "</ul>";
+  // Aiheet (tekniikat)
+  tiedot += "<h3>Aiheet</h3>";
 
-  // Tekniikat
-  tiedot += "<h3>Tekniikat</h3>";
   for(let i = 0; i < obj.tekniikat.length; i++){
-    tiedot += "<b>" + obj.tekniikat[i].aihe + "</b>: ";
-    tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>linkki</a><br>";
+    tiedot += "Aihe: " + obj.tekniikat[i].aihe + " ";
+    tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>";
+    tiedot += obj.tekniikat[i].linkki;
+    tiedot += "</a><br>";
   }
 
-  // Näytetään kaikki divissä
   document.getElementById("vastaus").innerHTML = tiedot;
 }
 </script>
