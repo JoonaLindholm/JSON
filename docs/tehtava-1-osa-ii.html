@@ -84,10 +84,10 @@ function kerro(obj){
 
   // Otsikko + kuvaus
   tiedot += "<h1>" + obj.otsikko + "</h1>";
-  tiedot += "<p>Kuvaus: <strong>" + obj.kuvaus + "</strong></p>";
-  tiedot += "<p>Osallistujat: <strong>" + obj.osallistujat + "</strong></p>";
-  tiedot += "<p>Aika: <strong>" + obj.aika + "</strong></p>";
-  tiedot += "<p>Kesto: <strong>" + obj.kesto + "</strong></p>";
+  tiedot += "<p><strong>" + obj.kuvaus + "</strong></p>";
+  tiedot += "<p><strong>" + obj.osallistujat + "</strong></p>";
+  tiedot += "<p><strong>" + obj.aika + "</strong></p>";
+  tiedot += "<p><strong>" + obj.kesto + "</strong></p>";
   tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3 w-100'>";
 
   document.getElementById("vastaus").innerHTML = tiedot;
