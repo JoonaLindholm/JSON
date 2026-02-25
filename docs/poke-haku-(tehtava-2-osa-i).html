@@ -61,13 +61,22 @@
   </div>
 </nav>
 
-<div class="p-5 gap-3">
-<h1>Pokemon haku</h1> 
-<input type="text" id="pokemonName" placeholder="Kirjoita pokemonin nimi"> 
-<button onclick="poke()">Hae</button>
+<div class="p-5">
+
+  <h1 class="mb-3">Pokemon haku</h1>
+
+  <input type="text"
+         id="pokemonName"
+         class="form-control mb-3"
+         placeholder="Kirjoita pokemonin nimi">
+
+  <button onclick="poke()" class="btn btn-primary mb-4">
+    Hae
+  </button>
   
-  <h2>Tässä joitain pokemonien nimiä valmiiksi:</h2>
-  <ul>
+  <h2 class="mb-2">Tässä joitain pokemonien nimiä valmiiksi:</h2>
+
+  <ul class="mb-3">
     <li>Charmander</li>
     <li>Bulbasaur</li>
     <li>Eevee</li>
@@ -76,7 +85,9 @@
     <li>Magikarp</li>
     <li>Gyarados</li>
   </ul>
+
   <div id="kuva2"></div>
+
 </div>
   
 <main id="main">
