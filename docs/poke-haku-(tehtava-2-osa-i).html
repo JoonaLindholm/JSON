@@ -60,54 +60,56 @@
     </div>
   </div>
 </nav>
+  
+<h1>Pokemon haku</h1>
 
+<input type="text" id="pokemonName" placeholder="Enter Pokemon name">
+<button onclick="poke()">Hae</button>
+
+<div id="nimi">Kirjoita pokemonin nimi</div>
+<div id="kuva2"></div>
+  
 <main id="main">
 <section class="container pt-5 pb-5" id="vastaus"></section>
 </main>
   
 <script>
-// Hakee JSON-tiedoston
-fetch('tietue.json')
-  .then(function(response){
-    return response.json(); // muutetaan JS-olioksi
-  })
-  .then(function(data){
-    kerro(data); // kutsutaan funktiota joka näyttää tiedot
-  })
-  .catch(function(){
-    document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
-  });
 
-function kerro(obj){
+// Tämä funktio käynnistyy kun nappia painetaan
+function poke(){
 
-  let tiedot = "";
+  // Haetaan inputin arvo
+  const pokeName = document
+    .getElementById("pokemonName")
+    .value
+    .toLowerCase();
 
-  // Otsikko + kuvaus
-  tiedot += "<h1>" + obj.otsikko + "</h1>";
-  tiedot += "<p>" + obj.kuvaus + "</p>";
-  tiedot += "<hr class='container opacity-50'>";
-  tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3 w-100'>";
+  // Fetch PokeAPI
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
 
-  // Opintojakso
-  tiedot += "<h3 class='text-center'>Opintojakso</h3>";
-  tiedot += "<p class='text-center'>";
-  tiedot += "Nimi: " + obj.opintojakso.nimi + "<br>";
-  tiedot += "Tunnus: " + obj.opintojakso.tunnus + "<br>";
-  tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet;
-  tiedot += "</p>";
+    .then(function(response){
+      return response.json(); // muutetaan JSON → JS-olio
+    })
 
-  // Aiheet (tekniikat)
-  tiedot += "<h3>Aiheet</h3>";
+    .then(function(data){
 
-  for(let i = 0; i < obj.tekniikat.length; i++){
-    tiedot += "Aihe: " + obj.tekniikat[i].aihe + " ";
-    tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>";
-    tiedot += obj.tekniikat[i].linkki;
-    tiedot += "</a><br>";
-  }
+      // Pokemonin nimi
+      document.getElementById("nimi").innerHTML =
+        "<h2>" + data.name + "</h2>";
 
-  document.getElementById("vastaus").innerHTML = tiedot;
+      // Pokemonin kuva
+      document.getElementById("kuva2").innerHTML =
+        "<img src='" + data.sprites.front_default + "'>";
+
+    })
+
+    .catch(function(){
+      document.getElementById("nimi").innerHTML =
+        "Pokemonia ei löytynyt";
+      document.getElementById("kuva2").innerHTML = "";
+    });
 }
+
 </script>
   
 </body>
