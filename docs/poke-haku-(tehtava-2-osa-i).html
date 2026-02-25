@@ -61,19 +61,24 @@
   </div>
 </nav>
 
-<div class="p-5">
+<div class="p-5 d-flex flex-column gap-3">
   <h1>Pokemon haku</h1>
-  <input type="text" id="pokemonName" placeholder="Kirjoita pokemonin nimi">
-  <button onclick="poke()">Hae</button>
-
+  <input type="text" id="pokemonName"
+         class="form-control"
+         placeholder="Kirjoita pokemonin nimi">
+  <button onclick="poke()" class="btn btn-primary">
+    Hae
+  </button>
   <h2>Tässä joitain pokemonien nimiä valmiiksi:</h2>
-  <li>charmander</li>
-  <li>bulbasaur</li>
-  <li>eevee</li>
-  <li>pikachu</li>
-  <li>charizard</li>
-  <li>magicarp</li>
-  <li>gyarados</li>
+  <ul>
+    <li>charmander</li>
+    <li>bulbasaur</li>
+    <li>eevee</li>
+    <li>pikachu</li>
+    <li>charizard</li>
+    <li>magikarp</li>
+    <li>gyarados</li>
+  </ul>
   <div id="kuva2"></div>
 </div>
   
