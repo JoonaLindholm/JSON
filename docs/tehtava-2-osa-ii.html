@@ -179,6 +179,18 @@ function pokekaanto(){
       document.getElementById("nimi").innerHTML =
         "<h2>" + data.name + "</h2>";
 
+      // Laitetaan pokemonin species
+      document.getElementById("nimi").innerHTML =
+        "<li>" + data.name.species + "</li>";
+
+      // Laitetaan pokemonin "harvinaisuus" nappaamis arvon mukaan ajateltuna
+      document.getElementById("nimi").innerHTML =
+        "<li>" + data.name.capture_rate + "</li>";
+
+      // Laitetaan pokemonin statsit
+      document.getElementById("nimi").innerHTML =
+        "<li>" + data.name.stats + "</li>";
+      
       // Laitetaan pokemonin kuva sivulle
       document.getElementById("kuva2").innerHTML =
         "<img src='" + data.sprites.back_default + "'>";
