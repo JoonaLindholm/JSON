@@ -78,7 +78,8 @@
 <!-- Tämä kääntönappi on ensin piilossa: display:none -->
   <button id="kaantonappi"
         class="btn btn-success mt-3"
-        style="display:none;">
+        style="display:none;"
+        onclick="pokekaanto()">
   Käännä pokemon!
 </button>
   
@@ -156,7 +157,7 @@ function poke(){
 }
 
   // Tämä tekee koko homman kun käyttäjä painaa nappia
-function Pokekaanto(){
+function pokekaanto(){
 
   // Otetaan tekstikentästä se poke mitä käyttäjä kirjoitti
   const pokeName = document
