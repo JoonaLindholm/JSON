@@ -144,6 +144,9 @@ function poke(){
       // Tämä nappi tulee näkyviin nyt, kun haku onnistui.
        document.getElementById("kaantonappi").style.display = "inline-block"; 
 
+      // Tyhjennetään kuva 3, esim jos käyttäjä painaa uudestaan hakua eikä ole vaihtanut pokemonin nimeä
+      document.getElementById("kuva3").innerHTML = "";
+
     })
 
     // Jos jotain meni pieleen (kirjoitusvirhe nimessä tms)
