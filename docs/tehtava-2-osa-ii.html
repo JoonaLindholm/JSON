@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fi">
 <head>
@@ -42,13 +43,13 @@
     <div class="collapse navbar-collapse" id="navigaatio">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Etusivu (Tehtävä 1 OSA 1)</a>
+          <a class="nav-link" href="index.html">Etusivu (Tehtävä 1 OSA 1)</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="tehtava-1-osa-ii.html">Tehtävä 1 OSA II</a>
+          <a class="nav-link" href="toteutus.html">Tehtävä 1 OSA II</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="poke-haku-(tehtava-2-osa-i).html">Poke haku (Tehtävä 2 OSA I)</a>
+          <a class="nav-link active" aria-current="page" href="#">Poke haku (Tehtävä 2 OSA I)</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="tehtava-2-osa-ii.html">Tehtävä 2 OSA II</a>
@@ -61,53 +62,99 @@
   </div>
 </nav>
 
+<div class="p-5">
+
+  <h1 class="mb-3">Pokemon haku</h1>
+
+  <input type="text"
+         id="pokemonName"
+         class="form-control mb-3"
+         placeholder="Kirjoita pokemonin nimi">
+
+  <button onclick="poke()" class="btn btn-primary mb-4">
+    Hae
+  </button>
+
+<!-- Tämä kääntönappi on ensin piilossa: display:none -->
+  <button id="kaantonappi"
+        class="btn btn-success mt-3"
+        style="display:none;">
+  Käännä pokemon!
+</button>
+  
+  <h2 class="mb-2">Tässä joitain pokemonien nimiä valmiiksi:</h2>
+
+  <ul class="mb-3">
+    <li>Charmander</li>
+    <li>Bulbasaur</li>
+    <li>Eevee</li>
+    <li>Pikachu</li>
+    <li>Charizard</li>
+    <li>Magikarp</li>
+    <li>Gyarados</li>
+  </ul>
+  
+  <div id="nimi"></div>
+  <div id="kuva2"></div>
+
+</div>
+  
 <main id="main">
 <section class="container pt-5 pb-5" id="vastaus"></section>
 </main>
   
 <script>
-// Hakee JSON-tiedoston
-fetch('tietue.json')
-  .then(function(response){
-    return response.json(); // muutetaan JS-olioksi
-  })
-  .then(function(data){
-    kerro(data); // kutsutaan funktiota joka näyttää tiedot
-  })
-  .catch(function(){
-    document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
-  });
 
-function kerro(obj){
+// Tämä tekee koko homman kun käyttäjä painaa nappia
+function poke(){
 
-  let tiedot = "";
+  // Otetaan tekstikentästä se poke mitä käyttäjä kirjoitti
+  const pokeName = document
+    .getElementById("pokemonName") // etsitään se poketeksti id:llä
+    .value                         // otetaan sen sisältö
+    .toLowerCase();                // muutetaan pieniksi kirjaimiksi (API vaatii)
 
-  // Otsikko + kuvaus
-  tiedot += "<h1>" + obj.otsikko + "</h1>";
-  tiedot += "<p>" + obj.kuvaus + "</p>";
-  tiedot += "<hr class='container opacity-50'>";
-  tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3 w-100'>";
+  // Pyydetään internetistä pokemonin tiedot
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
 
-  // Opintojakso
-  tiedot += "<h3 class='text-center'>Opintojakso</h3>";
-  tiedot += "<p class='text-center'>";
-  tiedot += "Nimi: " + obj.opintojakso.nimi + "<br>";
-  tiedot += "Tunnus: " + obj.opintojakso.tunnus + "<br>";
-  tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet;
-  tiedot += "</p>";
+    // Kun vastaus tulee palvelimelta…
+    .then(function(response){
+      return response.json(); // muutetaan vastaus muotoon jota JS ymmärtää
+    })
 
-  // Aiheet (tekniikat)
-  tiedot += "<h3>Aiheet</h3>";
+    // Kun data on saatu niin ->
+    .then(function(data){
 
-  for(let i = 0; i < obj.tekniikat.length; i++){
-    tiedot += "Aihe: " + obj.tekniikat[i].aihe + " ";
-    tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>";
-    tiedot += obj.tekniikat[i].linkki;
-    tiedot += "</a><br>";
-  }
+      // Laitetaan pokemonin nimi sivulle
+      document.getElementById("nimi").innerHTML =
+        "<h2>" + data.name + "</h2>";
 
-  document.getElementById("vastaus").innerHTML = tiedot;
+      // Laitetaan pokemonin kuva sivulle
+      document.getElementById("kuva2").innerHTML =
+        "<img src='" + data.sprites.front_default + "'>";
+
+      // Tämä nappi tulee näkyviin nyt, kun haku onnistui.
+       document.getElementById("kaantonappi").style.display = "inline-block"; 
+
+    })
+
+    // Jos jotain meni pieleen (kirjoitusvirhe nimessä tms)
+    .catch(function(){
+
+      // Kerrotaan käyttäjälle että ei löytynyt
+      document.getElementById("nimi").innerHTML =
+        "Pokemonia ei löytynyt";
+
+      // Tyhjennetään kuva
+      document.getElementById("kuva2").innerHTML = "";
+
+      // Tämä piilottaa napin, jos haku epäonnistui
+      document.getElementById("kaantonappi").style.display = "none";
+      
+});
+    });
 }
+
 </script>
   
 </body>
