@@ -150,10 +150,54 @@ function poke(){
 
       // Tämä piilottaa napin, jos haku epäonnistui
       document.getElementById("kaantonappi").style.display = "none";
-      
+ 
 });
     });
 }
+
+  // Tämä tekee koko homman kun käyttäjä painaa nappia
+function Pokekaanto(){
+
+  // Otetaan tekstikentästä se poke mitä käyttäjä kirjoitti
+  const pokeName = document
+    .getElementById("pokemonName") // etsitään se poketeksti id:llä
+    .value                         // otetaan sen sisältö
+    .toLowerCase();                // muutetaan pieniksi kirjaimiksi (API vaatii)
+
+  // Pyydetään internetistä pokemonin tiedot
+  fetch(`https://pokeapi.co/api/v2/pokemon/${pokeName}`)
+
+    // Kun vastaus tulee palvelimelta…
+    .then(function(response){
+      return response.json(); // muutetaan vastaus muotoon jota JS ymmärtää
+    })
+
+    // Kun data on saatu niin ->
+    .then(function(data){
+
+      // Laitetaan pokemonin nimi sivulle
+      document.getElementById("nimi").innerHTML =
+        "<h2>" + data.name + "</h2>";
+
+      // Laitetaan pokemonin kuva sivulle
+      document.getElementById("kuva2").innerHTML =
+        "<img src='" + data.sprites.back_default + "'>";
+    })
+
+    // Jos jotain meni pieleen (kirjoitusvirhe nimessä tms)
+    .catch(function(){
+
+      // Kerrotaan käyttäjälle että ei löytynyt
+      document.getElementById("nimi").innerHTML =
+        "Pokemonia ei löytynyt";
+
+      // Tyhjennetään kuva
+      document.getElementById("kuva2").innerHTML = "";
+
+});
+    });
+}
+
 
 </script>
   
