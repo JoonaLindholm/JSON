@@ -18,11 +18,12 @@
   </style>
 </head>
   
-<!-- sivulle harmaa tausta ja tekstit valkoisena -->
+<!-- sivulle vaalea tausta ja tekstit mustana -->
 <body class="bg-light text-dark">
 
   <!-- NAVIGAATIO osuus
-      - Navbari läpinäkyväksi
+      - Navigaatio tummaksi
+      - Navigaatio on hampurilaisvalikko pienellä näytöllä ja muuttuu suoriksi linkeiksi kun näytön koko kasvaa
   -->
   
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-5 mx-5 mt-4 mb-4" aria-label="Päävalikko">
@@ -180,15 +181,13 @@ function pokekaanto(){
 
     // Lisätään pokemonin nimi
     html += "<h2>" + data.name + "</h2>";
-    // Lisätään pokemonin laji
-    html += "<li>Species: " + data.species.name + "</li>";
-    // Lisätään HP stat
+    // Lisätään pokemonin statseja
     // data.stats = lista statseista
-    // [0] = ensimmäinen stat (HP)
+    // 0 = HP, 1 = hyökkäys ja 2 = puolustus
     // base_stat = itse numero
     html += "<li>HP: " + data.stats[0].base_stat + "</li>";
-    html += "<li>HP: " + data.stats[1].base_stat + "</li>";
-    html += "<li>HP: " + data.stats[2].base_stat + "</li>"; 
+    html += "<li>Hyökkäys: " + data.stats[1].base_stat + "</li>";
+    html += "<li>Puolustus: " + data.stats[2].base_stat + "</li>"; 
     // Nyt kun html-teksti on valmis → laitetaan se sivulle
     // Etsitään elementti id:llä "nimi" ja vaihdetaan sen sisältö
     document.getElementById("nimi").innerHTML = html;
