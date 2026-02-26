@@ -80,7 +80,7 @@
         class="btn btn-success mb-4"
         style="display:none;"
         onclick="pokekaanto()">
-  Käännä pokemon!
+  Käännä pokemon ja katso samalla sen shiny versio!
   </button>
  </div>
   
@@ -98,6 +98,7 @@
   
   <div id="nimi"></div>
   <div id="kuva2"></div>
+  <div id="kuva3"></div>
 
 </div>
   
@@ -147,7 +148,7 @@ function poke(){
       document.getElementById("nimi").innerHTML =
         "Pokemonia ei löytynyt";
 
-      // Tyhjennetään kuva
+      // Tyhjennetään kuva 2
       document.getElementById("kuva2").innerHTML = "";
       
       // Tämä piilottaa napin, jos haku epäonnistui
@@ -186,6 +187,8 @@ function pokekaanto(){
     // [0] = ensimmäinen stat (HP)
     // base_stat = itse numero
     html += "<li>HP: " + data.stats[0].base_stat + "</li>";
+    html += "<li>HP: " + data.stats[1].base_stat + "</li>";
+    html += "<li>HP: " + data.stats[2].base_stat + "</li>"; 
     // Nyt kun html-teksti on valmis → laitetaan se sivulle
     // Etsitään elementti id:llä "nimi" ja vaihdetaan sen sisältö
     document.getElementById("nimi").innerHTML = html;
@@ -193,6 +196,9 @@ function pokekaanto(){
     // sprites.back_default = pokemonin takakuva
     document.getElementById("kuva2").innerHTML =
     "<img src='" + data.sprites.back_default + "'>";
+    // lapset pyysivät shiny kuvaa myös niin lisäsin sen tähän, varmaan ok
+    document.getElementById("kuva3").innerHTML =
+    "<img src='" + data.sprites.front_shiny + "'>";
 
     })
 
@@ -203,8 +209,11 @@ function pokekaanto(){
       document.getElementById("nimi").innerHTML =
         "Pokemonia ei löytynyt";
 
-      // Tyhjennetään kuva
+      // Tyhjennetään kuva 2
       document.getElementById("kuva2").innerHTML = "";
+
+      // Tyhjennetään kuva 3
+      document.getElementById("kuva3").innerHTML = "";
     });
 }
 
