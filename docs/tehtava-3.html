@@ -81,14 +81,14 @@
     // Kun data on saatu niin ->
     .then(function(data){
 
-    document.getElementById("vastaus").innerHTML =
-      "<h2>" + "Sää Helsingissä" + "</h2>" +
-      "Sää kello " + aika.toLocaleTimeString("fi-FI") + "<br>" +
-      "Sää: " + "<br>" + data.weather[0].description + "<br>" +
-      "Lämpötila: " + data.main.temp + " °C<br>" +
-      "Tuntuu kuin: " + data.main.feels_like + " °C<br>" +
-      "Kosteus: " + data.main.humidity + " %<br>" +
-      "Tuuli: " + data.wind.speed + " m/s";
+document.getElementById("vastaus").innerHTML =
+  "<h2><strong>Sää Helsingissä</strong></h2>" +
+  "<strong>Sää kello:</strong> " + aika.toLocaleTimeString("fi-FI") + "<br>" +
+  "<strong>Sää:</strong> " + data.weather[0].description + "<br>" +
+  "<strong>Lämpötila:</strong> " + data.main.temp + " °C<br>" +
+  "<strong>Tuntuu kuin:</strong> " + data.main.feels_like + " °C<br>" +
+  "<strong>Kosteus:</strong> " + data.main.humidity + " %<br>" +
+  "<strong>Tuuli:</strong> " + data.wind.speed + " m/s";
 
     })
 
