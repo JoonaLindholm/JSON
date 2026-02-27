@@ -67,6 +67,9 @@
 </main>
   
 <script>
+
+  const aika = new Date();
+  
   // Pyydetään internetistä säätietoja
   fetch(`https://api.openweathermap.org/data/2.5/weather?id=658225&appid=665ecd56dfc08dbb50feb8b8f5034e28&lang=fi&units=metric`)
 
@@ -79,7 +82,8 @@
     .then(function(data){
 
     document.getElementById("vastaus").innerHTML =
-      "<h2>" + data.name + "</h2>" +
+      "<h2>" + "Sää Helsingissä" + "</h2>" +
+      "Sää kello" + aika..toLocaleTimeString("fi-FI") +
       "Sää: " + data.weather[0].description + "<br>" +
       "Lämpötila: " + data.main.temp + " °C<br>" +
       "Tuntuu kuin: " + data.main.feels_like + " °C<br>" +
