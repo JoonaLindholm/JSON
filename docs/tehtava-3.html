@@ -67,10 +67,7 @@
 </main>
   
 <script>
-// Tämä tekee koko homman kun käyttäjä painaa nappia
-function helsinkisaa(){
-
-  // Pyydetään internetistä pokemonin tiedot
+  // Pyydetään internetistä säätietoja
   fetch(`https://api.openweathermap.org/data/2.5/weather?id=658225&appid=665ecd56dfc08dbb50feb8b8f5034e28&lang=fi&units=metric`)
 
     // Kun vastaus tulee palvelimelta…
@@ -81,10 +78,13 @@ function helsinkisaa(){
     // Kun data on saatu niin ->
     .then(function(data){
 
-  document.getElementById("vastaus").innerHTML =
-    data.name + "<br>" +
-    data.weather[0].description + "<br>" +
-    data.main.temp + " °C";
+    document.getElementById("vastaus").innerHTML =
+      "<h2>" + data.name + "</h2>" +
+      "Sää: " + data.weather[0].description + "<br>" +
+      "Lämpötila: " + data.main.temp + " °C<br>" +
+      "Tuntuu kuin: " + data.main.feels_like + " °C<br>" +
+      "Kosteus: " + data.main.humidity + " %<br>" +
+      "Tuuli: " + data.wind.speed + " m/s";
 
     })
 
@@ -94,10 +94,9 @@ function helsinkisaa(){
       // Kerrotaan käyttäjälle että ei löytynyt
       document.getElementById("vastaus").innerHTML =
         "Säätä ei löytynyt";
-      
-    function()
     });
-}
+  
+</script>
   
 </body>
 </html>
