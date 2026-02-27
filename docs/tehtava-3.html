@@ -42,7 +42,7 @@
     <div class="collapse navbar-collapse" id="navigaatio">
       <ul class="navbar-nav mx-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Etusivu (Tehtävä 1 OSA 1)</a>
+          <a class="nav-link" href="index.html">Etusivu (Tehtävä 1 OSA 1)</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="tehtava-1-osa-ii.html">Tehtävä 1 OSA II</a>
@@ -54,7 +54,7 @@
           <a class="nav-link" href="tehtava-2-osa-ii.html">Tehtävä 2 OSA II</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="tehtava-3.html">Tehtävä 3</a>
+          <a class="nav-link active" aria-current="page" href="#">Tehtävä 3</a>
         </li>
       </ul>
     </div>
@@ -66,49 +66,36 @@
 </main>
   
 <script>
-// Hakee JSON-tiedoston
-fetch('tietue.json')
-  .then(function(response){
-    return response.json(); // muutetaan JS-olioksi
-  })
-  .then(function(data){
-    kerro(data); // kutsutaan funktiota joka näyttää tiedot
-  })
-  .catch(function(){
-    document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
-  });
+// Tämä tekee koko homman kun käyttäjä painaa nappia
+function helsinkisaa(){
 
-function kerro(obj){
+  // Pyydetään internetistä pokemonin tiedot
+  fetch(`https://api.openweathermap.org/data/2.5/weather?id=658225&appid=665ecd56dfc08dbb50feb8b8f5034e28&lang=fi&units=metric`)
 
-  let tiedot = "";
+    // Kun vastaus tulee palvelimelta…
+    .then(function(response){
+      return response.json(); // muutetaan vastaus muotoon jota JS ymmärtää
+    })
 
-  // Otsikko + kuvaus
-  tiedot += "<h1>" + obj.otsikko + "</h1>";
-  tiedot += "<p>" + obj.kuvaus + "</p>";
-  tiedot += "<hr class='container opacity-50'>";
-  tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3 w-100'>";
+    // Kun data on saatu niin ->
+    .then(function(data){
 
-  // Opintojakso
-  tiedot += "<h3 class='text-center'>Opintojakso</h3>";
-  tiedot += "<p class='text-center'>";
-  tiedot += "Nimi: " + obj.opintojakso.nimi + "<br>";
-  tiedot += "Tunnus: " + obj.opintojakso.tunnus + "<br>";
-  tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet;
-  tiedot += "</p>";
+  document.getElementById("vastaus").innerHTML =
+    data.name + "<br>" +
+    data.weather[0].description + "<br>" +
+    data.main.temp + " °C";
 
-  // Aiheet (tekniikat)
-  tiedot += "<h3>Aiheet</h3>";
+    })
 
-  for(let i = 0; i < obj.tekniikat.length; i++){
-    tiedot += "Aihe: " + obj.tekniikat[i].aihe + " ";
-    tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>";
-    tiedot += obj.tekniikat[i].linkki;
-    tiedot += "</a><br>";
-  }
+    // Jos jotain meni pieleen (kirjoitusvirhe nimessä tms)
+    .catch(function(){
 
-  document.getElementById("vastaus").innerHTML = tiedot;
+      // Kerrotaan käyttäjälle että ei löytynyt
+      document.getElementById("nimi").innerHTML =
+        "Säätä ei löytynyt";
+
+    });
 }
-</script>
   
 </body>
 </html>
