@@ -85,7 +85,7 @@
   Käännä pokemon ja katso samalla sen shiny versio sekä perusominaisuudet!
   </button>
  </div>
-  
+  <!-- Keräsin valmiiksi myyttisten pokemonien nimiä käyttäjälle -->
   <h2 class="mb-2">Tässä joitain myyttisiä pokemonien nimiä valmiiksi:</h2>
 
   <ul class="mb-3">
@@ -135,11 +135,11 @@ function poke(){
 
       // Laitetaan pokemonin nimi sivulle
       document.getElementById("nimi").innerHTML =
-        "<h2>" + data.name + "</h2>";
+      "<h2>" + data.name + "</h2>";
 
       // Laitetaan pokemonin kuva sivulle
       document.getElementById("kuva2").innerHTML =
-        "<img src='" + data.sprites.front_default + "'>";
+      "<img src='" + data.sprites.front_default + "'>";
 
       // Tämä nappi tulee näkyviin nyt, kun haku onnistui.
        document.getElementById("kaantonappi").style.display = "inline-block"; 
@@ -152,7 +152,7 @@ function poke(){
     // Jos jotain meni pieleen (kirjoitusvirhe nimessä tms)
     .catch(function(){
 
-      // Kerrotaan käyttäjälle että ei löytynyt
+      // Kerrotaan käyttäjälle että ei löytynyt pokemonia
       document.getElementById("nimi").innerHTML =
         "Pokemonia ei löytynyt";
 
@@ -195,16 +195,18 @@ function pokekaanto(){
     html += "<li>HP: " + data.stats[0].base_stat + "</li>";
     html += "<li>Hyökkäys: " + data.stats[1].base_stat + "</li>";
     html += "<li>Puolustus: " + data.stats[2].base_stat + "</li>"; 
-    // Nyt kun html-teksti on valmis → laitetaan se sivulle
+    // Nyt kun html-teksti on valmis niin laitetaan se sivulle
     // Etsitään elementti id:llä "nimi" ja vaihdetaan sen sisältö
     document.getElementById("nimi").innerHTML = html;
     // Laitetaan pokemonin kuva sivulle
     // sprites.back_default = pokemonin takakuva
     document.getElementById("kuva2").innerHTML =
     "<img src='" + data.sprites.back_default + "'>";
-    // lapset pyysivät shiny kuvaa myös niin lisäsin sen tähän, varmaan ok
+    // Lapset pyysivät shiny kuvaa myös niin lisäsin sen tähän, varmaan ok
     document.getElementById("kuva3").innerHTML =
     "<img src='" + data.sprites.front_shiny + "'>";
+    // Piilotetaan kääntönappi, kun sitä ollaan käytetty
+    document.getElementById("kaantonappi").style.display = "none";
 
     })
 
