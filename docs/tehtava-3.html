@@ -1,106 +1,119 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
+  <!-- Kerrotaan selaimelle, että teksti on suomeksi -->
   <meta charset="UTF-8">
+  <!-- Varmistaa, että sivu skaalautuu oikein kännykällä ja tabletilla -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Selaimen välilehden nimi -->
   <title>JSON harjoitus</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS tuo valmiit tyylit, napit, taustat, marginit yms -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap JS Bundle (sis. Popper) -->
+  <!-- Bootstrap JS Bundle hoitaa interaktiot, kuten valikot ja napit -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Käytettävyys säätöjä -->
   <style>
+    /* Jos linkki vie tiettyyn kohtaan (#joku), ei jää nav-barin alle */
     :target { scroll-margin-top: 90px; }
-
   </style>
 </head>
   
-<!-- sivulle harmaa tausta ja tekstit valkoisena -->
-<body class="bg-light text-dark">
+<body class="bg-light text-dark"> 
+  <!-- Vaalea tausta ja tumma teksti -->
 
-  <!-- NAVIGAATIO osuus
-  
-      - Navbari läpinäkyväksi
-  -->
-  
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-5 mx-5 mt-4 mb-4" aria-label="Päävalikko">
-  <div class="container">
+  <!-- NAVIGAATIO (ylävalikko) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-5 mx-5 mt-4 mb-4" aria-label="Päävalikko">
+    <div class="container">
 
-    <!-- Hampurilaisnappi vasemmalla -->
-    <button class="navbar-toggler me-2" type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navigaatio"
-            aria-controls="navigaatio"
-            aria-expanded="false"
-            aria-label="Valikon vaihto">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+      <!-- Hampurilaisnappi pienillä näytöillä -->
+      <button class="navbar-toggler me-2" type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navigaatio"
+              aria-controls="navigaatio"
+              aria-expanded="false"
+              aria-label="Valikon vaihto">
+        <!-- Kolme viivaa symbolina -->
+        <span class="navbar-toggler-icon"></span> 
+      </button>
 
-    <!-- Collapse-valikko, joka aukeaa pienillä näytöillä -->
-    <div class="collapse navbar-collapse" id="navigaatio">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item">
-          <a class="nav-link" href="index.html">Etusivu (Tehtävä 1 OSA 1)</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="tehtava-1-osa-ii.html">Tehtävä 1 OSA II</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="poke-haku-(tehtava-2-osa-i).html">Poke haku (Tehtävä 2 OSA I)</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="tehtava-2-osa-ii.html">Tehtävä 2 OSA II</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Tehtävä 3</a>
-        </li>
-      </ul>
+      <!-- Nav-valikon kohdat -->
+      <div class="collapse navbar-collapse" id="navigaatio">
+        <ul class="navbar-nav mx-auto">
+          <!-- Yksi linkki navissa -->
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Etusivu (Tehtävä 1 OSA 1)</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tehtava-1-osa-ii.html">Tehtävä 1 OSA II</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="poke-haku-(tehtava-2-osa-i).html">Poke haku (Tehtävä 2 OSA I)</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="tehtava-2-osa-ii.html">Tehtävä 2 OSA II</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Tehtävä 3</a>
+          </li>
+        </ul>
+      </div>
+
     </div>
-  </div>
-</nav>
+  </nav>
 
-<main id="main">
-<section class="container pt-5 pb-5" id="vastaus"></section>
-</main>
+  <!-- Pääsisältö -->
+  <main id="main">
+    <!-- Tähän diviin ilmestyy säätiedot -->
+    <section class="container pt-5 pb-5" id="vastaus"></section>
+  </main>
   
-<script>
+  <script>
 
+  // Otetaan tämän hetken kellonaika
   const aika = new Date();
-  
-  // Pyydetään internetistä säätietoja
+
+  // Haetaan säätiedot netistä OpenWeatherMap API:sta
   fetch(`https://api.openweathermap.org/data/2.5/weather?id=658225&appid=665ecd56dfc08dbb50feb8b8f5034e28&lang=fi&units=metric`)
 
-    // Kun vastaus tulee palvelimelta…
+    // Kun palvelin vastaa
     .then(function(response){
-      return response.json(); // muutetaan vastaus muotoon jota JS ymmärtää
+      // Muutetaan palvelimen vastaus JSONista JS-olioksi
+      return response.json(); 
     })
 
-    // Kun data on saatu niin ->
+    // Kun data on saatu
     .then(function(data){
 
-document.getElementById("vastaus").innerHTML =
-  "<h2><strong>Sää Helsingissä</strong></h2>" +
-  "<strong>Sää kello:</strong> " + aika.toLocaleTimeString("fi-FI") + "<br>" +
-  "<strong>Sää:</strong> " + data.weather[0].description + "<br>" +
-  "<strong>Lämpötila:</strong> " + data.main.temp + " °C<br>" +
-  "<strong>Tuntuu kuin:</strong> " + data.main.feels_like + " °C<br>" +
-  "<strong>Kosteus:</strong> " + data.main.humidity + " %<br>" +
-  "<strong>Tuuli:</strong> " + data.wind.speed + " m/s";
+      // Laitetaan tiedot näkyviin diviin "vastaus"
+      document.getElementById("vastaus").innerHTML =
+        // Otsikko
+        "<h2><strong>Sää Helsingissä</strong></h2>" +
+        // Kellonaika
+        "<strong>Sää kello:</strong> " + aika.toLocaleTimeString("fi-FI") + "<br>" +
+        // Sään kuvaus
+        "<strong>Sää:</strong> " + data.weather[0].description + "<br>" +
+        // Lämpötila
+        "<strong>Lämpötila:</strong> " + data.main.temp + " °C<br>" +
+        // Tuntuu kuin
+        "<strong>Tuntuu kuin:</strong> " + data.main.feels_like + " °C<br>" +
+        // Kosteus
+        "<strong>Kosteus:</strong> " + data.main.humidity + " %<br>" +
+        // Tuulen nopeus
+        "<strong>Tuuli:</strong> " + data.wind.speed + " m/s";
 
     })
 
-    // Jos jotain meni pieleen (kirjoitusvirhe nimessä tms)
+    // Jos jotain menee pieleen
     .catch(function(){
 
-      // Kerrotaan käyttäjälle että ei löytynyt
+      // Näytetään viesti, ettei tietoja saatu
       document.getElementById("vastaus").innerHTML =
         "Säätä ei löytynyt";
     });
   
-</script>
+  </script>
   
 </body>
 </html>
