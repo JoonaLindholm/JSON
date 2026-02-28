@@ -1,34 +1,34 @@
 <!DOCTYPE html>
 <html lang="fi">
 <head>
+  <!-- Määritellään että sivu on HTML ja kieli suomi -->
   <meta charset="UTF-8">
+  <!-- Kerrotaan selaimelle että sivu toimii myös puhelimessa ja tableteissa -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Sivun nimi välilehdelle -->
   <title>JSON harjoitus</title>
 
-  <!-- Bootstrap CSS -->
+  <!-- Ladataan Bootstrapin tyylitiedosto, tekee sivusta nätin ja responsiivisen -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Bootstrap JS Bundle (sis. Popper) -->
+  <!-- Ladataan Bootstrapin javascript, mahdollistaa esim. valikot ja napit toimimaan -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Käytettävyys säätöjä -->
+  <!-- Pieni lisätyyli -->
   <style>
+    /* Kun käytät ankkurilinkkiä (#something), tämä tekee että sisältö ei jää navin alle */
     :target { scroll-margin-top: 90px; }
-
   </style>
 </head>
   
-<!-- sivulle harmaa tausta ja tekstit valkoisena -->
-<body class="bg-light text-dark">
+<body class="bg-light text-dark"> 
+<!-- Sivun pääosa alkaa, tausta vaalea ja teksti tummalla -->
 
-  <!-- NAVIGAATIO osuus
-      - Navbari läpinäkyväksi
-  -->
-  
+<!-- NAVIGAATIO -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-5 mx-5 mt-4 mb-4" aria-label="Päävalikko">
   <div class="container">
 
-    <!-- Hampurilaisnappi vasemmalla -->
+    <!-- Pieni nappi pienille näytöille (hampurilaisnappi) -->
     <button class="navbar-toggler me-2" type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navigaatio"
@@ -38,9 +38,10 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <!-- Collapse-valikko, joka aukeaa pienillä näytöillä -->
+    <!-- Itse navigaatiolista -->
     <div class="collapse navbar-collapse" id="navigaatio">
       <ul class="navbar-nav mx-auto">
+        <!-- Yksi sivun linkki -->
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">Etusivu (Tehtävä 1 OSA 1)</a>
         </li>
@@ -61,34 +62,44 @@
   </div>
 </nav>
 
+<!-- PÄÄSISÄLTÖ -->
 <main id="main">
-<section class="container pt-5 pb-5" id="vastaus"></section>
+  <!-- Tämä on paikka, johon JSON-tiedot laitetaan näkyviin -->
+  <section class="container pt-5 pb-5" id="vastaus"></section>
 </main>
   
 <script>
-// Hakee JSON-tiedoston
+// Hakee JSON-tiedoston nimeltä "tietue.json"
 fetch('tietue.json')
   .then(function(response){
-    return response.json(); // muutetaan JS-olioksi
+    // Kun tiedosto tulee, muuttaa sen JavaScriptin ymmärtämään muotoon (JSON -> JS-olio)
+    return response.json();
   })
   .then(function(data){
-    kerro(data); // kutsutaan funktiota joka näyttää tiedot
+    // Kun data on luettu, kutsutaan funktiota "kerro" näyttämään tiedot sivulla
+    kerro(data);
   })
   .catch(function(){
+    // Jos jotain meni pieleen, näytetään virheilmoitus käyttäjälle
     document.getElementById("vastaus").innerHTML = "<p>Tietoa ei pystytä hakemaan</p>";
   });
 
+// Funktio, joka näyttää tiedot sivulla
 function kerro(obj){
 
+  // Luodaan tyhjä muuttuja johon kerätään HTML-koodi
   let tiedot = "";
 
-  // Otsikko + kuvaus
+  // Lisätään otsikko
   tiedot += "<h1>" + obj.otsikko + "</h1>";
+  // Lisätään kuvaus
   tiedot += "<p>" + obj.kuvaus + "</p>";
+  // Lisätään viiva
   tiedot += "<hr class='container opacity-50'>";
+  // Lisätään kuva
   tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3 w-100'>";
 
-  // Opintojakso
+  // Lisätään opintojakson tiedot
   tiedot += "<h3 class='text-center'>Opintojakso</h3>";
   tiedot += "<p class='text-center'>";
   tiedot += "Nimi: " + obj.opintojakso.nimi + "<br>";
@@ -96,9 +107,8 @@ function kerro(obj){
   tiedot += "Opintopisteet: " + obj.opintojakso.opintopisteet;
   tiedot += "</p>";
 
-  // Aiheet (tekniikat)
+  // Lisätään opittavat aiheet (tekniikat)
   tiedot += "<h3>Aiheet</h3>";
-
   for(let i = 0; i < obj.tekniikat.length; i++){
     tiedot += "Aihe: " + obj.tekniikat[i].aihe + " ";
     tiedot += "<a href='" + obj.tekniikat[i].linkki + "' target='_blank'>";
@@ -106,9 +116,10 @@ function kerro(obj){
     tiedot += "</a><br>";
   }
 
+  // Laitetaan kaikki kerätyt tiedot näkyville kohtaan "vastaus"
   document.getElementById("vastaus").innerHTML = tiedot;
 }
 </script>
   
-</body>
+</body> 
 </html>
