@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="fi"> <!-- Tällä kerrotaan selaimelle, että sivu on suomeksi -->
+<!-- Tällä kerrotaan selaimelle, että sivu on suomeksi -->
+<html lang="fi"> 
 <head>
-  <meta charset="UTF-8"> <!-- Tällä kerrotaan, että merkit (ä, ö, å) näkyvät oikein -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Sivu skaalautuu mobiililla oikein -->
-  <title>JSON harjoitus</title> <!-- Nimi joka näkyy selaimen välilehdessä -->
+  <!-- Tällä kerrotaan, että merkit (ä, ö, å) näkyvät oikein -->
+  <meta charset="UTF-8"> 
+  <!-- Sivu skaalautuu mobiililla oikein -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <!-- Nimi joka näkyy selaimen välilehdessä -->
+  <title>JSON harjoitus</title> 
 
   <!-- Bootstrap CSS, tämä tuo valmiit tyylit eli napit, paddingit yms -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -18,7 +22,8 @@
   </style>
 </head>
   
-<body class="bg-light text-dark"> <!-- Taustaväri on vaalea, teksti tummalla -->
+<!-- Taustaväri on vaalea, teksti tummalla -->
+<body class="bg-light text-dark"> 
 
   <!-- TÄMÄ ON YLÄVALIKKO (navbar) -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark rounded-5 mx-5 mt-4 mb-4" aria-label="Päävalikko">
@@ -68,10 +73,12 @@
   // Tämä hakee tiedot JSON-tiedostosta (tietue1_osa_ii.json)
   fetch('tietue1_osa_ii.json')
     .then(function(response){
-      return response.json(); // Muuttaa JSONin javascriptin ymmärtämäksi objektiksi
+      // Muuttaa JSONin javascriptin ymmärtämään muotoon
+      return response.json(); 
     })
     .then(function(data){
-      kerro(data); // Kutsutaan funktiota joka näyttää tiedot ruudulla
+      // Kutsutaan funktiota joka näyttää tiedot ruudulla
+      kerro(data); 
     })
     .catch(function(){
       // Jos jotain menee pieleen, näytetään tämä viesti
@@ -80,16 +87,22 @@
 
   // Tämä funktio näyttää tiedot ruudulla
   function kerro(obj){
+    // Aloitetaan tyhjästä, tähän kerätään tekstit
+    let tiedot = ""; 
 
-    let tiedot = ""; // Aloitetaan tyhjästä, tähän kerätään HTML
-
-    // Otsikko + kuvaus
-    tiedot += "<h1>" + obj.otsikko + "</h1>"; // Näytetään otsikko
-    tiedot += "<p><strong>" + obj.kuvaus + "</strong></p>"; // Näytetään kuvaus, lihavoituna
-    tiedot += "<p><strong>" + obj.osallistujat + "</strong></p>"; // Näytetään osallistujat
-    tiedot += "<p><strong>" + obj.aika + "</strong></p>"; // Näytetään aika
-    tiedot += "<p><strong>" + obj.kesto + "</strong></p>"; // Näytetään kesto
-    tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3'>"; // Näytetään kuva, mukautuu ruutuun
+    // Otsikko + kuvaus alla
+    // Näytetään otsikko
+    tiedot += "<h1>" + obj.otsikko + "</h1>"; 
+    // Näytetään kuvaus, lihavoituna
+    tiedot += "<p><strong>" + obj.kuvaus + "</strong></p>"; 
+    // Näytetään osallistujat
+    tiedot += "<p><strong>" + obj.osallistujat + "</strong></p>"; 
+     // Näytetään aika
+    tiedot += "<p><strong>" + obj.aika + "</strong></p>";
+    // Näytetään kesto
+    tiedot += "<p><strong>" + obj.kesto + "</strong></p>"; 
+    // Näytetään kuva, mukautuu ruutuun
+    tiedot += "<img src='" + obj.kuva + "' alt='Kurssikuva' class='img-fluid mb-3'>"; 
 
     // Laitetaan kaikki nämä elementit sivulle siihen kohtaan, jossa on id="vastaus"
     document.getElementById("vastaus").innerHTML = tiedot;
